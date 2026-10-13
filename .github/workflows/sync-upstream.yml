@@ -1,0 +1,17 @@
+name: Sincronizar main com o original
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Atualizar main a partir de melgarafael/DeskcommCRM
+        env:
+          GH_TOKEN: ${{ secrets.SYNC_TOKEN }}
+        run: gh repo sync "${{ github.repository }}" --source melgarafael/DeskcommCRM --branch main
